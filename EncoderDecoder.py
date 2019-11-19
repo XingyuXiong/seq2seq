@@ -7,14 +7,12 @@ import os
 
 
 #word2vec={}
+word_list=[]
 word2idx={}
 idx2word={}
 idx2vec={}
-dic=(word2idx,idx2word,idx2vec)
 embed_filename='test.file'
 word2vec_filename='dict.file'
-vec2word_filename='vec2word.file'
-
 
 'batch_first===False'
 class EncoderDecoder(nn.Module):
@@ -33,14 +31,14 @@ class EncoderDecoder(nn.Module):
         self.encode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
         self.decode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
         self.decode_output_list=[]
-        self.input=idx2vec[input[:,:]]
+        self.input=input
         self.output=output
         self.loss_fn=loss
         self.crossentropy=nn.CrossEntropyLoss(reduction=False)
         self.q=q
-        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word2idx))
+        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word_list))
         'convert hidden_size-length output to dictionary-length scores of words'
-        self.W=torch.rand(self.batch_size,len(word2vec),self.hidden_dim)
+        self.W=torch.rand(self.batch_size,len(word_list),self.hidden_dim)
         #'used when softmax in different batches'
         #self.curr_batch=None
 
@@ -120,12 +118,12 @@ class Decoder(nn.Module):
 
 def embed(sentences):
     'return sourceL*batch_size*dim'
+    '''
     import spacy
     nlp=spacy.load('en_core_web_md')
-    input_vectors=[]
+    input_idxs=[]
     for sentence in sentences:
-        doc=nlp(sentence)
-        input_vectors.append([token.vector for token in doc])
+        doc=nlp(sentence)      
         i=0
         for token in doc:
             #word2vec[token.text]=token.vector
@@ -133,12 +131,45 @@ def embed(sentences):
             idx2word[i]=token.text
             idx2vec[token.text]=i
             i+=1
-    input_vectors=torch.FloatTensor(input_vectors).permute(1,0,2)
+        input_idxs.append([token.vector for token in doc])
+    input_idxs=torch.FloatTensor(input_idxs).permute(1,0,2)
     #print(dic)
     with open(word2vec_filename,'wb') as f:
         pickle.dump(dic,f)
     'feature_dim is 300'
-    return input_vectors
+    return input_idxs
+    '''   
+    'two local lists'
+    word_list2=[]
+    word_list3=[]
+    for sentence in sentences:
+        words=sentence.split()
+        word_list2.append(words)
+    input_idxs=word_list2[0::2]
+    output_idxs=word_list2[1::2]
+
+    for l in word_list2:
+        word_list3.extend(l)
+    word_list3=list(set(word_list3))
+    idx2word=dict(enumerate(word_list3))
+    word2idx={value:key for key,value in idx2word.items()}
+    whole_sentence=' '.join(word_list3)
+
+    print(word2idx)
+    input_idxs=[[word2idx[word] for word in sentence] for sentence in input_idxs]
+    output_idxs=[[word2idx[word] for word in sentence] for sentence in output_idxs]
+    print(input_idxs[0])
+    '''
+    import spacy
+    nlp=spacy.load('en_core_web_md')
+    doc=nlp(whole_sentence)
+    for token in doc:
+        idx2vec[word2idx[token.text]]=token.vector
+    '''
+    with open(word2vec_filename,'wb') as f:
+        pickle.dump((word_list3,word2idx,idx2word,idx2vec),f)    
+    
+    return (torch.Tensor(input_idxs),torch.Tensor(output_idxs))
 
 
 def train(dataset):
@@ -157,8 +188,8 @@ def train(dataset):
     q=lambda x:x[-1]
     model=EncoderDecoder(encoder=encoder,
                         decoder=decoder,
-                        embed_input=input,
-                        embed_output=target,
+                        input=input,
+                        output=target,
                         hidden_dim=hidden_size,
                         loss=loss,
                         max_len=max_len,
@@ -183,21 +214,20 @@ def change():
         os.remove(word2vec_filename)
 
 
-inputs=['a test sentence','repeat pad pad']
-outputs=['yeah a test sentence','repeat pad pad pad']
+data=['a test sentence','yeah a test sentence','repeat pad pad','repeat pad pad pad']
 if __name__=='__main__':
     import pickle
     test=True
     dataset=None
     if test:
-        #change()
+        change()
         if os.path.exists(embed_filename):
             with open(embed_filename,'rb') as f:
                 dataset=pickle.load(f)
             with open(word2vec_filename,'rb') as f:
-                dic=pickle.load(f)
+                (word_list,word2idx,idx2word,idx2vec)=pickle.load(f)
         else:
-            dataset=embed(inputs),embed(outputs)
+            dataset=embed(data)
             with open(embed_filename,'wb') as f:
                 pickle.dump(dataset,f)
         train(dataset)
