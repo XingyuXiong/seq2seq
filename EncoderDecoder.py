@@ -5,59 +5,86 @@ import torch.nn.functional as F
 from torch.optim import Optimizer
 import os
 
-dict={'BOS':0}
+
+#word2vec={}
+word2idx={}
+idx2word={}
+idx2vec={}
+dic=(word2idx,idx2word,idx2vec)
+embed_filename='test.file'
+word2vec_filename='dict.file'
+vec2word_filename='vec2word.file'
+
 
 'batch_first===False'
 class EncoderDecoder(nn.Module):
-    def __init__(self,encoder,decoder,embed_input,embed_output,hidden_dim,loss,max_len,q,batch_first=True):
-        'embed_input:batch_size*sourceL*dim'
+    def __init__(self,encoder,decoder,input,output,hidden_dim,loss,max_len,q,batch_first=True):
+        'input:batch_size*sourceL*dim'
         'assume embed_input,embed_output are torch variables'
         super(EncoderDecoder,self).__init__() 
         self.encoder=encoder
         self.decoder=decoder
-        batch_size=embed_input.size(1)
-        self.enc_len=embed_input.size(0)
-        self.dec_len=embed_output.size(0)
+        self.batch_size=input.size(1)
+        self.enc_len=input.size(0)
+        self.dec_len=output.size(0)
         self.hidden_dim=hidden_dim
-        self.encode_hid=nn.Parameter(torch.FloatTensor(1,batch_size,hidden_dim))
-        self.decode_hid=nn.Parameter(torch.FloatTensor(1,batch_size,hidden_dim))
         'parameter is changing, the data should be saved in the list'
-        nn.init.xavier_uniform_(self.encode_hid,gain=0.01)
-        nn.init.xavier_uniform_(self.decode_hid,gain=0.01)
         self.predict_y_list=[]
-        self.encode_hid_list=[self.encode_hid.data]
-        self.decode_hid_list=[self.decode_hid.data]
-        self.input=embed_input
-        self.output=embed_output
+        self.encode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
+        self.decode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
+        self.decode_output_list=[]
+        self.input=idx2vec[input[:,:]]
+        self.output=output
         self.loss_fn=loss
+        self.crossentropy=nn.CrossEntropyLoss(reduction=False)
         self.q=q
+        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word2idx))
+        'convert hidden_size-length output to dictionary-length scores of words'
+        self.W=torch.rand(self.batch_size,len(word2vec),self.hidden_dim)
+        #'used when softmax in different batches'
+        #self.curr_batch=None
 
 
     def forward(self):
         #print(type(self.encode_hid))
         #for i in self.encode_hid_list:
         #    print(i[0,0,:10])
+        encode_hid=self.encode_hid_list[0]
+        dec_init_input=None
         for enc_i in range(self.enc_len):
-            _,self.encode_hid.data=self.encoder(self.input,self.encode_hid)
-            self.encode_hid_list.append(self.encode_hid.data)
+            dec_init_input,encode_hid=self.encoder(self.input,encode_hid)
+            self.encode_hid_list.append(encode_hid.data)
         c=self.q(self.encode_hid_list)
-        y=self.encode_hid_list[-1]
+        self.decode_output_list.append(dec_init_input)
+        output=dec_init_input
+        decode_hid=self.decode_hid_list[0]
         for dec_i in range(self.dec_len):
-            y,self.decode_hid.data=self.decoder(y,c,self.decode_hid)
-            self.predict_y_list.append(y)
-            self.decode_hid_list.append(self.decode_hid.data)
-        return output
+            'output.size()==sourceL*batch_size*hidden_dim'
+            output,decode_hid=self.decoder(output,c,decode_hid)
+            self.decode_output_list.append(output)
+            self.cal_score(dec_i,output)
+            #self.decode_hid_list.append(self.decode_hid)
 
 
     def loss(self):
-        input=self.input
-        output=self.forward()
-        loss_var=self.loss_fn(input,output)
+        self.forward()   
+        loss_var=0
+        for output in self.decode_output_list:
+            pass
         return loss_var
 
 
     def predict(self,x):
-        output=self.encoder(x,)
+        #output=self.encoder(x,)
+        pass
+
+
+    def cal_score(self,dec_i,output):
+        #print(self.W.size())
+        step_output=output[min(dec_i,self.enc_len-1)].unsqueeze(-1)
+        #print(step_output.size())
+        #for i in range(self.batch_size):
+        self.word_score_dis[dec_i]=torch.bmm(self.W,step_output).squeeze()
 
 
 class Encoder(nn.Module):
@@ -86,6 +113,7 @@ class Decoder(nn.Module):
     def forward(self,y,c,hidden):
         output,hidden=self.rnn(y,hidden)
         'c.size==hidden.size=1*batch_size*hidden_size'
+        'self-define layer'
         hidden=self.Wc(c)+self.Wh(hidden)
         return output,hidden
 
@@ -98,7 +126,17 @@ def embed(sentences):
     for sentence in sentences:
         doc=nlp(sentence)
         input_vectors.append([token.vector for token in doc])
+        i=0
+        for token in doc:
+            #word2vec[token.text]=token.vector
+            word2idx[token.text]=i
+            idx2word[i]=token.text
+            idx2vec[token.text]=i
+            i+=1
     input_vectors=torch.FloatTensor(input_vectors).permute(1,0,2)
+    #print(dic)
+    with open(word2vec_filename,'wb') as f:
+        pickle.dump(dic,f)
     'feature_dim is 300'
     return input_vectors
 
@@ -139,20 +177,25 @@ def train(dataset):
 
 
 def change():
-    os.remove(test.file)
+    if os.path.exists(embed_filename):
+        os.remove(embed_filename)
+    if os.path.exists(word2vec_filename):
+        os.remove(word2vec_filename)
 
 
 inputs=['a test sentence','repeat pad pad']
 outputs=['yeah a test sentence','repeat pad pad pad']
 if __name__=='__main__':
     import pickle
-    embed_filename='test.file'
     test=True
+    dataset=None
     if test:
         #change()
         if os.path.exists(embed_filename):
             with open(embed_filename,'rb') as f:
                 dataset=pickle.load(f)
+            with open(word2vec_filename,'rb') as f:
+                dic=pickle.load(f)
         else:
             dataset=embed(inputs),embed(outputs)
             with open(embed_filename,'wb') as f:
