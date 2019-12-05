@@ -36,7 +36,8 @@ class EncoderDecoder(nn.Module):
         self.loss_fn=loss
         self.crossentropy=nn.CrossEntropyLoss(reduction=False)
         self.q=q
-        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word_list))
+        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word_list
+            ))
         'convert hidden_size-length output to dictionary-length scores of words'
         self.W=torch.rand(self.batch_size,len(word_list),self.hidden_dim)
         #'used when softmax in different batches'
@@ -50,6 +51,8 @@ class EncoderDecoder(nn.Module):
         encode_hid=self.encode_hid_list[0]
         dec_init_input=None
         for enc_i in range(self.enc_len):
+            print(self.input.size())
+            print(encode_hid.size())
             dec_init_input,encode_hid=self.encoder(self.input,encode_hid)
             self.encode_hid_list.append(encode_hid.data)
         c=self.q(self.encode_hid_list)
@@ -159,13 +162,11 @@ def embed(sentences):
     input_idxs=[[word2idx[word] for word in sentence] for sentence in input_idxs]
     output_idxs=[[word2idx[word] for word in sentence] for sentence in output_idxs]
     print(input_idxs[0])
-    '''
     import spacy
     nlp=spacy.load('en_core_web_md')
     doc=nlp(whole_sentence)
     for token in doc:
         idx2vec[word2idx[token.text]]=token.vector
-    '''
     with open(word2vec_filename,'wb') as f:
         pickle.dump((word_list3,word2idx,idx2word,idx2vec),f)    
     
