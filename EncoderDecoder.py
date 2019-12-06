@@ -4,7 +4,10 @@ import torch.autograd as autograd
 import torch.nn.functional as F
 from torch.optim import Optimizer
 import os
-
+USE_SPACY=False
+if USE_SPACY:
+    import spacy
+    nlp=spacy.load('en_core_web_md')
 
 #word2vec={}
 word_list=[]
@@ -13,79 +16,68 @@ idx2word={}
 idx2vec={}
 embed_filename='test.file'
 word2vec_filename='dict.file'
+BOS_vec=torch.Tensor(1,1,300)
 
+
+def embed_two_dim(idxtensor):
+    'should use torch embeddings'
+    vectensor=torch.Tensor([[idx2vec[int(idx)] for idx in sentence] for sentence in idxtensor])
+    return vectensor
+    
+    
 'batch_first===False'
 class EncoderDecoder(nn.Module):
-    def __init__(self,encoder,decoder,input,output,hidden_dim,loss,max_len,q,batch_first=True):
-        'input:batch_size*sourceL*dim'
-        'assume embed_input,embed_output are torch variables'
+    def __init__(self,encoder,decoder,input,output,hidden_dim,loss_fn,max_len,batch_first=True):
+        'input:input_num*sourceL*batch_size=1'
+        print(input.size())
         super(EncoderDecoder,self).__init__() 
         self.encoder=encoder
         self.decoder=decoder
-        self.batch_size=input.size(1)
-        self.enc_len=input.size(0)
-        self.dec_len=output.size(0)
+        self.batch_size=1
+        self.input_num=input.size(0)
+        self.enc_len=input.size(1)
+        self.dec_len=output.size(1)
         self.hidden_dim=hidden_dim
         'parameter is changing, the data should be saved in the list'
         self.predict_y_list=[]
         self.encode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
-        self.decode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
-        self.decode_output_list=[]
+        #self.dec_hid_list=[]
+        self.dec_out_list=[]
         self.input=input
         self.output=output
-        self.loss_fn=loss
-        self.crossentropy=nn.CrossEntropyLoss(reduction=False)
-        self.q=q
-        self.word_score_dis=torch.Tensor(self.dec_len,self.batch_size,len(word_list
-            ))
-        'convert hidden_size-length output to dictionary-length scores of words'
-        self.W=torch.rand(self.batch_size,len(word_list),self.hidden_dim)
-        #'used when softmax in different batches'
-        #self.curr_batch=None
+        'NLLloss'
+        self.loss_fn=loss_fn
+        self.loss_val=0
 
 
-    def forward(self):
-        #print(type(self.encode_hid))
-        #for i in self.encode_hid_list:
-        #    print(i[0,0,:10])
+    def forward(self,input_id):
         encode_hid=self.encode_hid_list[0]
-        dec_init_input=None
+        enc_input_seq=embed_two_dim(self.input[input_id])
         for enc_i in range(self.enc_len):
-            print(self.input.size())
-            print(encode_hid.size())
-            dec_init_input,encode_hid=self.encoder(self.input,encode_hid)
+            enc_input=enc_input_seq[enc_i].unsqueeze(0)
+            enc_output,encode_hid=self.encoder(enc_input,encode_hid)
             self.encode_hid_list.append(encode_hid.data)
-        c=self.q(self.encode_hid_list)
-        self.decode_output_list.append(dec_init_input)
-        output=dec_init_input
-        decode_hid=self.decode_hid_list[0]
+        'omit c'
+        output=BOS_vec
+        decode_hid=self.encode_hid_list[-1]
+        dec_input_seq=embed_two_dim(self.output[input_id])
         for dec_i in range(self.dec_len):
-            'output.size()==sourceL*batch_size*hidden_dim'
-            output,decode_hid=self.decoder(output,c,decode_hid)
-            self.decode_output_list.append(output)
-            self.cal_score(dec_i,output)
-            #self.decode_hid_list.append(self.decode_hid)
+            'teacher forcing'
+            dec_input=dec_input_seq[dec_i].unsqueeze(0)
+            output,decode_hid=self.decoder(dec_input,decode_hid)
+            self.loss_val+=self.loss_fn(output,self.output[input_id,dec_i])
 
 
     def loss(self):
-        self.forward()   
-        loss_var=0
-        for output in self.decode_output_list:
-            pass
-        return loss_var
-
-
+        self.loss_val=0
+        for i in range(self.input_num):
+            self.forward(i)
+        return self.loss_val
+    
+            
     def predict(self,x):
         #output=self.encoder(x,)
         pass
-
-
-    def cal_score(self,dec_i,output):
-        #print(self.W.size())
-        step_output=output[min(dec_i,self.enc_len-1)].unsqueeze(-1)
-        #print(step_output.size())
-        #for i in range(self.batch_size):
-        self.word_score_dis[dec_i]=torch.bmm(self.W,step_output).squeeze()
 
 
 class Encoder(nn.Module):
@@ -102,88 +94,62 @@ class Encoder(nn.Module):
 
 
 class Decoder(nn.Module):
-    def __init__(self,batch_size,input_size,hidden_size,g=None):
+    def __init__(self,hidden_size,output_size,g=None):
         super(Decoder,self).__init__()
-        self.dim=input_size
         self.hidden_dim=hidden_size
-        self.rnn=nn.GRU(input_size,hidden_size)
-        self.Wc=nn.Linear(hidden_size,hidden_size)
-        self.Wh=nn.Linear(hidden_size,hidden_size)
+        self.rnn=nn.GRU(hidden_size,hidden_size)
+        self.out=nn.Linear(hidden_size,output_size)
+        self.softmax=nn.LogSoftmax(dim=1)
 
 
-    def forward(self,y,c,hidden):
+    def forward(self,y,hidden):
         output,hidden=self.rnn(y,hidden)
-        'c.size==hidden.size=1*batch_size*hidden_size'
-        'self-define layer'
-        hidden=self.Wc(c)+self.Wh(hidden)
+        output=self.softmax(self.out(output[0]))
         return output,hidden
 
 
 def embed(sentences):
-    'return sourceL*batch_size*dim'
-    '''
-    import spacy
-    nlp=spacy.load('en_core_web_md')
-    input_idxs=[]
-    for sentence in sentences:
-        doc=nlp(sentence)      
-        i=0
-        for token in doc:
-            #word2vec[token.text]=token.vector
-            word2idx[token.text]=i
-            idx2word[i]=token.text
-            idx2vec[token.text]=i
-            i+=1
-        input_idxs.append([token.vector for token in doc])
-    input_idxs=torch.FloatTensor(input_idxs).permute(1,0,2)
-    #print(dic)
-    with open(word2vec_filename,'wb') as f:
-        pickle.dump(dic,f)
-    'feature_dim is 300'
-    return input_idxs
-    '''   
-    'two local lists'
-    word_list2=[]
-    word_list3=[]
+    one_dim_words=[]
+    two_dim_words=[]
     for sentence in sentences:
         words=sentence.split()
-        word_list2.append(words)
-    input_idxs=word_list2[0::2]
-    output_idxs=word_list2[1::2]
+        one_dim_words.append(words)
+    embed_input=one_dim_words[0::2]
+    embed_output=one_dim_words[1::2]
 
-    for l in word_list2:
-        word_list3.extend(l)
-    word_list3=list(set(word_list3))
-    idx2word=dict(enumerate(word_list3))
+    for l in one_dim_words:
+        two_dim_words.extend(l)
+    two_dim_words=list(set(two_dim_words))
+    idx2word=dict(enumerate(two_dim_words))
     word2idx={value:key for key,value in idx2word.items()}
-    whole_sentence=' '.join(word_list3)
+    whole_sentence=' '.join(two_dim_words)
 
-    print(word2idx)
-    input_idxs=[[word2idx[word] for word in sentence] for sentence in input_idxs]
-    output_idxs=[[word2idx[word] for word in sentence] for sentence in output_idxs]
-    print(input_idxs[0])
-    import spacy
-    nlp=spacy.load('en_core_web_md')
     doc=nlp(whole_sentence)
     for token in doc:
         idx2vec[word2idx[token.text]]=token.vector
-    with open(word2vec_filename,'wb') as f:
-        pickle.dump((word_list3,word2idx,idx2word,idx2vec),f)    
+
+    print(word2idx)
+    embed_input=[[word2idx[word] for word in sentence] for sentence in embed_input]
+    embed_output=[[word2idx[word] for word in sentence] for sentence in embed_output]
     
-    return (torch.Tensor(input_idxs),torch.Tensor(output_idxs))
+    with open(word2vec_filename,'wb') as f:
+        pickle.dump((two_dim_words,word2idx,idx2word,idx2vec),f)
+    
+    embed_input=torch.LongTensor(embed_input).unsqueeze(2)
+    embed_output=torch.LongTensor(embed_output).unsqueeze(2)
+    return embed_input,embed_output
 
 
 def train(dataset):
     (input,target)=dataset
-    input_size=input.size(-1)
-    #print(input.size())
-    hidden_size=input_size
+    input_size=300
+    hidden_size=300
     encoder=Encoder(input_size,hidden_size)
 
     batch_size=input.size(1)
-    decoder=Decoder(batch_size,input_size,hidden_size)
+    decoder=Decoder(hidden_size,len(word2idx))
 
-    loss=torch.nn.MSELoss(reduction='mean')
+    loss_fn=nn.NLLLoss()
     max_len=3
     stop_loss=0.1
     q=lambda x:x[-1]
@@ -192,16 +158,19 @@ def train(dataset):
                         input=input,
                         output=target,
                         hidden_dim=hidden_size,
-                        loss=loss,
+                        loss_fn=loss_fn,
                         max_len=max_len,
-                        q=q)
+                        )
     
-    optimizer=torch.optim.SGD(model.parameters(),lr=0.01)
+    enc_optimizer=torch.optim.SGD(encoder.parameters(),lr=0.01)
+    dec_optimizer=torch.optim.SGD(decoder.parameters(),lr=0.01)
     for step_i in range(max_len):
-        optimizer.zero_grad()
+        enc_optimizer.zero_grad()
+        dec_optimizer.zero_grad()
         loss=model.loss()
-        loss.backward()
-        optimizer.step()
+        loss.backward(retain_graph=True)
+        enc_optimizer.step()
+        dec_optimizer.step()
         print('step:{0} loss:{1}'.format(step_i,loss))
         if loss<stop_loss:
             print('loss is considerable, stop')
@@ -221,7 +190,8 @@ if __name__=='__main__':
     test=True
     dataset=None
     if test:
-        change()
+        if USE_SPACY:
+            change()
         if os.path.exists(embed_filename):
             with open(embed_filename,'rb') as f:
                 dataset=pickle.load(f)
