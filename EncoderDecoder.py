@@ -4,19 +4,37 @@ import torch.autograd as autograd
 import torch.nn.functional as F
 from torch.optim import Optimizer
 import os
-USE_SPACY=False
-if USE_SPACY:
-    import spacy
-    nlp=spacy.load('en_core_web_md')
+import spacy
+nlp=spacy.load('en_core_web_md')
 
-#word2vec={}
-word_list=[]
+IGNORE_OUTPUT=True
+
+data=None
 word2idx={}
 idx2word={}
 idx2vec={}
 embed_filename='test.file'
 word2vec_filename='dict.file'
-BOS_vec=torch.Tensor(1,1,300)
+data=[]
+data_dir=os.path.abspath('.\\movie_lines.txt')
+if os.name=='posix':
+    data_dir.replace('\\','/')
+    
+ABBRS={'re':'are','m':'am','s':'is'}
+SPECIAL=['BOS','EOS','OOV']
+    
+
+def load_data(line_num=10,sen_len=10):
+    with open(data_dir,'rb') as f:
+        count=0
+        for line in f:
+            sentence=str(line).split('+++$+++')[-1]
+            sentence=sentence[:-4]+' {0} {1}'.format(sentence[-4],SPECIAL[1])
+            print(sentence)
+            data.append(sentence)
+            count+=1
+            if count>=line_num:
+                break
 
 
 def embed_two_dim(idxtensor):
@@ -39,9 +57,7 @@ class EncoderDecoder(nn.Module):
         self.dec_len=output.size(1)
         self.hidden_dim=hidden_dim
         'parameter is changing, the data should be saved in the list'
-        self.predict_y_list=[]
-        self.encode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
-        #self.dec_hid_list=[]
+        #self.encode_hid_list=[torch.rand(1,self.batch_size,hidden_dim)*0.01]
         self.dec_out_list=[]
         self.input=input
         self.output=output
@@ -49,18 +65,19 @@ class EncoderDecoder(nn.Module):
         self.loss_fn=loss_fn
         self.loss_val=0
         self.max_len=max_len
+        
+        self.BOS=torch.Tensor(idx2vec[word2idx[SPECIAL[0]]]).unsqueeze(0).unsqueeze(0)
 
 
     def forward(self,input_id):
-        encode_hid=self.encode_hid_list[0]
+        encode_hid=torch.rand(1,self.batch_size,self.hidden_dim)*0.01
         enc_input_seq=embed_two_dim(self.input[input_id])
         for enc_i in range(self.enc_len):
             enc_input=enc_input_seq[enc_i].unsqueeze(0)
             enc_output,encode_hid=self.encoder(enc_input,encode_hid)
-            self.encode_hid_list.append(encode_hid.data)
         'omit c'
-        output=BOS_vec
-        decode_hid=self.encode_hid_list[-1]
+        output=self.BOS
+        decode_hid=encode_hid
         dec_input_seq=embed_two_dim(self.output[input_id])
         for dec_i in range(self.dec_len):
             'teacher forcing'
@@ -81,23 +98,23 @@ class EncoderDecoder(nn.Module):
             sentence=sentence.split()
             inputidx=[[word2idx[word] for word in sentence]]
             enc_input_seq=embed_two_dim(inputidx)[0].unsqueeze(1)
-            print(enc_input_seq.size())
             enc_len=len(sentence)
             encode_hid=None
             for enc_i in range(enc_len):
                 enc_input=enc_input_seq[enc_i].unsqueeze(0)
                 enc_output,encode_hid=self.encoder(enc_input,encode_hid)
-            output=BOS_vec
             decode_hid=encode_hid
             decoded_words=[]
-            dec_input=BOS_vec
+            dec_input=self.BOS
             for dec_i in range(self.max_len):
                 output,decode_hid=self.decoder(dec_input,decode_hid)
-                print(output)
+                #print('output distribution:'+str(output))
                 _,wordidx=output[0].data.topk(1)
                 idx=int(wordidx[0])
                 dec_input=embed_two_dim([[idx]])
                 decoded_words.append(idx2word[idx])
+                if idx==word2idx[SPECIAL[1]]:
+                    break
             return decoded_words
         
 
@@ -131,13 +148,13 @@ class Decoder(nn.Module):
 
 def embed(sentences):
     one_dim_words=[]
-    two_dim_words=[]
+    two_dim_words=SPECIAL
     for sentence in sentences:
         words=sentence.split()
         one_dim_words.append(words)
     embed_input=one_dim_words[0::2]
     embed_output=one_dim_words[1::2]
-
+    
     for l in one_dim_words:
         two_dim_words.extend(l)
     two_dim_words=list(set(two_dim_words))
@@ -147,15 +164,20 @@ def embed(sentences):
 
     doc=nlp(whole_sentence)
     for token in doc:
-        idx2vec[word2idx[token.text]]=token.vector
+        if token.text in word2idx:
+            idx2vec[word2idx[token.text]]=token.vector
+        elif token.text in ABBRS:
+            idx2vec[word2idx[ABBRS[token.text]]]=token.vector
+        else:
+            print(token.text)
 
-    print(word2idx)
     embed_input=[[word2idx[word] for word in sentence] for sentence in embed_input]
     embed_output=[[word2idx[word] for word in sentence] for sentence in embed_output]
     
     with open(word2vec_filename,'wb') as f:
-        pickle.dump((two_dim_words,word2idx,idx2word,idx2vec),f)
+        pickle.dump((word2idx,idx2word,idx2vec),f)
     
+    print(word2idx)
     embed_input=torch.LongTensor(embed_input).unsqueeze(2)
     embed_output=torch.LongTensor(embed_output).unsqueeze(2)
     return embed_input,embed_output
@@ -171,7 +193,7 @@ def train(dataset):
     decoder=Decoder(hidden_size,len(word2idx))
 
     loss_fn=nn.NLLLoss()
-    max_len=4
+    max_len=5
     stop_loss=0.1
     q=lambda x:x[-1]
     model=EncoderDecoder(encoder=encoder,
@@ -185,7 +207,7 @@ def train(dataset):
     
     enc_optimizer=torch.optim.SGD(encoder.parameters(),lr=0.01)
     dec_optimizer=torch.optim.SGD(decoder.parameters(),lr=0.01)
-    max_train_step=20
+    max_train_step=200
     for step_i in range(max_train_step):
         enc_optimizer.zero_grad()
         dec_optimizer.zero_grad()
@@ -193,12 +215,12 @@ def train(dataset):
         loss.backward(retain_graph=True)
         enc_optimizer.step()
         dec_optimizer.step()
-        print('step:{0} loss:{1}'.format(step_i,loss))
-        if loss<stop_loss:
-            print('loss is considerable, stop')
-            break
-    sentence=data[0]
-    print(model.predict(sentence))
+        if not IGNORE_OUTPUT:
+            print('step:{0} loss:{1}'.format(step_i,loss))
+            if loss<stop_loss:
+                print('loss is considerable, stop')
+                break
+    return model
 
 
 def change():
@@ -208,21 +230,22 @@ def change():
         os.remove(word2vec_filename)
 
 
-data=['a test sentence','yeah a test sentence','repeat pad pad','repeat pad pad pad']
-if __name__=='__main__':
+load_data()
+TEST=True
+TRAIN=False
+if TEST:
     import pickle
-    test=True
     dataset=None
-    if test:
-        if USE_SPACY:
-            change()
-        if os.path.exists(embed_filename):
-            with open(embed_filename,'rb') as f:
-                dataset=pickle.load(f)
-            with open(word2vec_filename,'rb') as f:
-                (word_list,word2idx,idx2word,idx2vec)=pickle.load(f)
-        else:
-            dataset=embed(data)
-            with open(embed_filename,'wb') as f:
-                pickle.dump(dataset,f)
-        train(dataset)
+    change()
+    if os.path.exists(embed_filename):
+        with open(embed_filename,'rb') as f:
+            dataset=pickle.load(f)
+    else:
+        dataset=embed(data)
+        with open(embed_filename,'wb') as f:
+            pickle.dump(dataset,f)
+    with open(word2vec_filename,'rb') as f:
+        (word2idx,idx2word,idx2vec)=pickle.load(f)
+    print(idx2vec[4][:10])
+    if TRAIN:
+        model=train(dataset)
