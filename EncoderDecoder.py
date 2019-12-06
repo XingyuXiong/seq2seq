@@ -48,6 +48,7 @@ class EncoderDecoder(nn.Module):
         'NLLloss'
         self.loss_fn=loss_fn
         self.loss_val=0
+        self.max_len=max_len
 
 
     def forward(self,input_id):
@@ -75,10 +76,30 @@ class EncoderDecoder(nn.Module):
         return self.loss_val
     
             
-    def predict(self,x):
-        #output=self.encoder(x,)
-        pass
-
+    def predict(self,sentence):
+        with torch.no_grad():
+            sentence=sentence.split()
+            inputidx=[[word2idx[word] for word in sentence]]
+            enc_input_seq=embed_two_dim(inputidx)[0].unsqueeze(1)
+            print(enc_input_seq.size())
+            enc_len=len(sentence)
+            encode_hid=None
+            for enc_i in range(enc_len):
+                enc_input=enc_input_seq[enc_i].unsqueeze(0)
+                enc_output,encode_hid=self.encoder(enc_input,encode_hid)
+            output=BOS_vec
+            decode_hid=encode_hid
+            decoded_words=[]
+            dec_input=BOS_vec
+            for dec_i in range(self.max_len):
+                output,decode_hid=self.decoder(dec_input,decode_hid)
+                print(output)
+                _,wordidx=output[0].data.topk(1)
+                idx=int(wordidx[0])
+                dec_input=embed_two_dim([[idx]])
+                decoded_words.append(idx2word[idx])
+            return decoded_words
+        
 
 class Encoder(nn.Module):
     def __init__(self,input_size,hidden_size):
@@ -150,7 +171,7 @@ def train(dataset):
     decoder=Decoder(hidden_size,len(word2idx))
 
     loss_fn=nn.NLLLoss()
-    max_len=3
+    max_len=4
     stop_loss=0.1
     q=lambda x:x[-1]
     model=EncoderDecoder(encoder=encoder,
@@ -164,7 +185,8 @@ def train(dataset):
     
     enc_optimizer=torch.optim.SGD(encoder.parameters(),lr=0.01)
     dec_optimizer=torch.optim.SGD(decoder.parameters(),lr=0.01)
-    for step_i in range(max_len):
+    max_train_step=20
+    for step_i in range(max_train_step):
         enc_optimizer.zero_grad()
         dec_optimizer.zero_grad()
         loss=model.loss()
@@ -175,6 +197,8 @@ def train(dataset):
         if loss<stop_loss:
             print('loss is considerable, stop')
             break
+    sentence=data[0]
+    print(model.predict(sentence))
 
 
 def change():
