@@ -1,0 +1,312 @@
+[I 20:28:40.752 NotebookApp] 端口 8888 已经被站用, 请尝试其他端口.
+[I 20:28:40.754 NotebookApp] 端口 8889 已经被站用, 请尝试其他端口.
+[I 20:28:40.756 NotebookApp] 端口 8890 已经被站用, 请尝试其他端口.
+[I 20:28:40.933 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.4.1
+[I 20:28:40.934 NotebookApp] 启动notebooks 在本地路径: K:\ipynb
+[I 20:28:40.935 NotebookApp] 本程序运行在: http://localhost:8891/?token=714d7f4a46d2825cf6332275d2f248ddaa9dae50bdd08b8b
+[I 20:28:40.935 NotebookApp]  or http://127.0.0.1:8891/?token=714d7f4a46d2825cf6332275d2f248ddaa9dae50bdd08b8b
+[I 20:28:40.935 NotebookApp] 使用control-c停止此服务器并关闭所有内核(两次跳过确认).
+[C 20:28:41.099 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///C:/Users/53194/AppData/Roaming/jupyter/runtime/nbserver-5456-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8891/?token=714d7f4a46d2825cf6332275d2f248ddaa9dae50bdd08b8b
+     or http://127.0.0.1:8891/?token=714d7f4a46d2825cf6332275d2f248ddaa9dae50bdd08b8b
+[I 20:28:48.926 NotebookApp] Kernel started: 1250e29b-a4df-42a6-88b6-aec90ab8e50a
+[I 20:30:48.405 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:32:48.189 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:34:48.890 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:36:48.239 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:40:35.864 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:40:48.206 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:41:20.494 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:42:48.203 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:44:48.206 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:46:48.220 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:48:48.232 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:50:48.244 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:52:48.255 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:53:07.004 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:54:48.760 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:56:48.207 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:58:14.559 NotebookApp] Starting buffering for 1250e29b-a4df-42a6-88b6-aec90ab8e50a:cac64465d3654368a00199f2568ce1a7
+[I 21:00:22.074 NotebookApp] Restoring connection for 1250e29b-a4df-42a6-88b6-aec90ab8e50a:cac64465d3654368a00199f2568ce1a7
+[I 21:28:48.207 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:29:47.203 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:30:48.231 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:32:48.219 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:32:57.442 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:33:54.128 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:34:14.243 NotebookApp] Starting buffering for 1250e29b-a4df-42a6-88b6-aec90ab8e50a:cac64465d3654368a00199f2568ce1a7
+[I 22:07:55.632 NotebookApp] Restoring connection for 1250e29b-a4df-42a6-88b6-aec90ab8e50a:cac64465d3654368a00199f2568ce1a7
+[I 22:08:48.166 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:08:48.178 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:09:50.293 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:12:48.174 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:14:06.146 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:14:40.610 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:15:40.014 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:16:40.250 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:17:07.910 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:05.717 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:20.935 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:38.395 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:48.606 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:53.467 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:18:59.012 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:20:27.251 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:20:48.159 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:22:48.230 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:24:48.169 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:28:48.324 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:30:32.769 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:30:47.428 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:32:48.183 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:44:48.545 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:48:48.269 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:50:48.325 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:51:03.638 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:51:18.919 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:51:58.506 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:29:55.401 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:30:48.282 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:32:48.186 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:34:48.163 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:38:48.213 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:51:21.669 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:52:48.238 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:52:54.358 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:54:48.163 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:56:48.190 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 22:49:15.765 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.4.1
+[I 22:49:15.788 NotebookApp] 启动notebooks 在本地路径: K:\ipynb
+[I 22:49:15.788 NotebookApp] 本程序运行在: http://localhost:8888/?token=5c44dc4abeec30a037270e9251499eb0e4e682216c78b461
+[I 22:49:15.788 NotebookApp]  or http://127.0.0.1:8888/?token=5c44dc4abeec30a037270e9251499eb0e4e682216c78b461
+[I 22:49:15.788 NotebookApp] 使用control-c停止此服务器并关闭所有内核(两次跳过确认).
+[C 22:49:15.854 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///C:/Users/53194/AppData/Roaming/jupyter/runtime/nbserver-17276-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=5c44dc4abeec30a037270e9251499eb0e4e682216c78b461
+     or http://127.0.0.1:8888/?token=5c44dc4abeec30a037270e9251499eb0e4e682216c78b461
+[I 22:49:20.160 NotebookApp] Kernel started: a8a0e25d-6325-43de-a26d-efc8947e46a7
+[I 22:51:19.852 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 22:57:19.796 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 22:59:23.526 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 22:59:33.665 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:01:19.840 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:02:30.220 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:03:19.965 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:03:45.067 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:05:19.960 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:07:19.801 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:07:41.818 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:09:19.868 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:10:43.634 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:11:19.815 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:13:19.805 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:15:19.814 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:17:19.846 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:20:57.508 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:21:19.798 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:23:19.831 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:32:27.866 NotebookApp] Starting buffering for a8a0e25d-6325-43de-a26d-efc8947e46a7:2b233631d95d4ee78f1f49364966a12c
+[I 08:04:37.436 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.4.1
+[I 08:04:37.436 NotebookApp] 启动notebooks 在本地路径: K:\ipynb
+[I 08:04:37.436 NotebookApp] 本程序运行在: http://localhost:8888/?token=91e35fa5fc50a740ac9bbf776acb44ca1f9889ad538726f1
+[I 08:04:37.436 NotebookApp]  or http://127.0.0.1:8888/?token=91e35fa5fc50a740ac9bbf776acb44ca1f9889ad538726f1
+[I 08:04:37.436 NotebookApp] 使用control-c停止此服务器并关闭所有内核(两次跳过确认).
+[C 08:04:37.502 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///C:/Users/53194/AppData/Roaming/jupyter/runtime/nbserver-17068-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=91e35fa5fc50a740ac9bbf776acb44ca1f9889ad538726f1
+     or http://127.0.0.1:8888/?token=91e35fa5fc50a740ac9bbf776acb44ca1f9889ad538726f1
+[I 08:04:40.477 NotebookApp] Kernel started: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 08:06:40.423 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:08:40.417 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:10:40.429 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:16:40.468 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:24:40.419 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:28:42.430 NotebookApp] Kernel interrupted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 08:28:45.039 NotebookApp] Kernel interrupted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 08:28:57.898 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:9908317ce01b4d999f4cfa72ac3a5dbb
+[I 08:29:24.729 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 08:29:31.595 NotebookApp] Kernel restarted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 08:29:33.314 NotebookApp] Restoring connection for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 08:29:33.314 NotebookApp] Replaying 3 buffered messages
+[I 08:30:55.218 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:31:12.757 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:32:59.013 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:34:19.333 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:34:59.929 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:36:59.963 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:49:33.795 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:49:43.533 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:50:24.664 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:54:59.958 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 08:58:59.035 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:00:59.953 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:01:58.146 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:02:00.674 NotebookApp] Kernel restarted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 09:02:01.876 NotebookApp] Restoring connection for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:02:01.876 NotebookApp] Replaying 6 buffered messages
+[I 09:02:59.487 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:03:04.904 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:04:59.924 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:10:58.996 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:11:03.941 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:12:18.504 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:12:59.036 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:16:28.608 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:16:58.986 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:17:22.482 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:18:57.747 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:18:58.951 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:20:12.415 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:20:30.889 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:20:58.985 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:21:56.008 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:21:57.836 NotebookApp] Kernel restarted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 09:21:58.949 NotebookApp] Restoring connection for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:21:58.950 NotebookApp] Replaying 3 buffered messages
+[I 09:22:59.075 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:24:19.939 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:24:59.013 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:25:42.334 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:26:04.585 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:26:13.395 NotebookApp] Kernel started: cc1b5299-dc84-4c90-bf47-c1763db86b02
+[I 09:26:59.072 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:28:59.118 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:30:59.474 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:31:14.762 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:32:59.106 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:34:58.960 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:35:32.837 NotebookApp] Starting buffering for cc1b5299-dc84-4c90-bf47-c1763db86b02:308f5e76e50440a18b28cf4bd077612c
+[I 09:36:49.390 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:36:54.874 NotebookApp] Kernel restarted: 1b6ed30b-f39f-4b15-ad1e-047779c8ba26
+[I 09:36:55.911 NotebookApp] Restoring connection for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 09:36:55.911 NotebookApp] Replaying 3 buffered messages
+[I 09:36:58.955 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:38:58.969 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:40:58.960 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:42:58.957 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:44:58.958 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:46:58.960 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:48:59.002 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:49:19.743 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:49:42.508 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 09:50:58.985 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 23:31:38.213 NotebookApp] Starting buffering for 1b6ed30b-f39f-4b15-ad1e-047779c8ba26:74e42ac0f0b94947812693541b4b2b34
+[I 21:46:06.302 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.4.1
+[I 21:46:06.325 NotebookApp] 启动notebooks 在本地路径: K:\ipynb
+[I 21:46:06.325 NotebookApp] 本程序运行在: http://localhost:8888/?token=f25d5db559fed48a67480628fe923ffa40b7681ad9549394
+[I 21:46:06.325 NotebookApp]  or http://127.0.0.1:8888/?token=f25d5db559fed48a67480628fe923ffa40b7681ad9549394
+[I 21:46:06.325 NotebookApp] 使用control-c停止此服务器并关闭所有内核(两次跳过确认).
+[C 21:46:06.423 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///C:/Users/53194/AppData/Roaming/jupyter/runtime/nbserver-4888-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=f25d5db559fed48a67480628fe923ffa40b7681ad9549394
+     or http://127.0.0.1:8888/?token=f25d5db559fed48a67480628fe923ffa40b7681ad9549394
+[I 21:46:11.218 NotebookApp] Kernel started: 959842c1-69f3-4470-bc6e-aaeb80367799
+[I 21:48:11.520 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:53:12.304 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:54:11.007 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:54:20.409 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:54:34.885 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 21:55:36.831 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 22:23:31.952 NotebookApp] Restoring connection for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 22:24:10.868 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:54:10.921 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:56:10.902 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 00:56:38.102 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 08:06:26.895 NotebookApp] Restoring connection for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 08:08:10.849 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 11:06:40.482 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 11:59:27.960 NotebookApp] Restoring connection for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 12:05:00.486 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 13:15:09.918 NotebookApp] Restoring connection for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 13:17:32.473 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 13:18:04.929 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 13:37:21.851 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 13:37:55.865 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 13:38:04.951 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 13:59:29.202 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 14:00:06.611 NotebookApp] Restoring connection for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
+[I 16:16:04.927 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:18:04.918 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:20:04.919 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:20:31.071 NotebookApp] Kernel interrupted: 959842c1-69f3-4470-bc6e-aaeb80367799
+[I 16:20:42.875 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:22:05.554 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:24:04.920 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:26:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:28:05.586 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:30:05.591 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:32:05.562 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:34:05.548 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:36:05.562 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:38:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:40:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:42:05.548 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:44:05.547 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:46:05.554 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:48:05.568 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:50:05.552 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:52:05.552 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:54:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:56:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 16:58:05.565 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:00:05.551 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:02:05.555 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:04:05.553 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:06:05.566 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:08:05.553 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:10:04.918 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:12:05.552 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:14:05.566 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:16:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:18:04.918 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:20:05.549 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:22:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:24:05.551 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:26:05.566 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:28:04.925 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:30:04.923 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:32:04.920 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:34:04.924 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:36:04.920 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:38:04.919 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:46:04.918 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:46:27.393 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:48:04.917 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:48:54.553 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:50:04.917 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 17:56:04.918 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 18:46:05.564 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 18:52:05.550 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:24:04.928 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:24:16.870 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:25:31.330 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:26:04.926 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:26:12.848 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:26:50.943 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:28:04.922 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:29:30.922 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:29:39.512 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:30:53.887 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:31:08.166 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:31:36.013 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:31:44.977 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:31:55.552 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:32:05.078 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:32:13.963 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:33:00.391 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:33:16.271 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:34:04.925 NotebookApp] Saving file at /EncoderDecoder.ipynb
+[I 20:44:01.329 NotebookApp] Starting buffering for 959842c1-69f3-4470-bc6e-aaeb80367799:ce559114db164e61a8b06542d0b0fb3b
